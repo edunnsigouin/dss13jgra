@@ -1,0 +1,42 @@
+SHELL=/bin/sh
+#
+# Makefile for e.bindex.F
+##############################################################
+FC      = ifort 
+FFLAGS  = -assume byterecl 
+LIBS    = -I/aos/home/joowan/lib/netcdf3/ifort_charney/include \
+-L/aos/home/joowan/lib/netcdf.3.6.3/ifort_charney/lib -lnetcdf
+##############################################################
+CMD  =  e.bindex.exe
+HDRS =  qq.h 
+OBJS =  e.bindex.o ccl.o anomaly.o areacalc.o spatialthresh.o \
+        overlap.o stat3.o fdist.o durthresh.o \
+        nlabelreorder.o labelreorder.o stat4.o \
+        datetrack.o ddist.o wrap2.o Adist.o GHG.o readnetcdf.o \
+        annualcycle.o
+##############################################################
+$(CMD):		$(OBJS) $(HDRS)
+	$(FC) -o $@ $(FFLAGS) $(OBJS) $(LIBS)
+##############################################################
+e.bindex.o: $(HDRS)
+ccl.o: $(HDRS)
+anomaly.o: $(HDRS)
+areacalc.o: $(HDRS)
+spatialthresh.o: $(HDRS)
+overlap.o: $(HDRS)
+durthresh.o: $(HDRS)
+stat3.o: $(HDRS)
+stat4.o: $(HDRS)
+fdist.o: $(HDRS)
+nlabelreorder.o: $(HDRS)
+labelreorder.o: $(HDRS)
+datetrack.o: $(HDRS)
+ddist.o: $(HDRS)
+wrap2.o: $(HDRS)
+Adist.o: $(HDRS)
+GHG.o: $(HDRS)
+readnetcdf.o: $(HDRS)
+annualcycle.o: $(HDRS)
+##############################################################
+clean:
+	$(RM) $(OBJS)
